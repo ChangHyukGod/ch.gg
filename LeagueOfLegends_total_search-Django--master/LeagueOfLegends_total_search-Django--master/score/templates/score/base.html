@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+{% load static %}
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>롤 전적 검색</title><!--웹페이지 제목으로 인식-->
+    <link href="https://fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/earlyaccess/nanumpenscript.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/lol.css' %}">
+</head>
+<title>전적검색</title>
+<body>
+    <div class="page-header">
+        <center>
+            <h1><a href="/">롤 전적 검색</a></h1>
+            <h3>CH.GG</h3>
+        </center>
+    </div>
+    <div class="community-header">
+        <center>
+
+        </center>
+        <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+    </div>
+    <div class="content-container2">
+        <div class="row">
+            <div class="col-md-8">
+                {% block content %}
+                                                    <!--block를 만들어서 html내에 들어갈 수 있는 공간을 만든 것이다. 즉,
+                                        base.html을 확장하여 다른 템플릿에도 가져다 쓸 수 있게 만든 것임-->
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
