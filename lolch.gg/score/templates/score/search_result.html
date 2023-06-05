@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CH.GG</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/lol.css' %}">
+    <style>
+        .line {
+            border-top: 1px solid black;
+        }
+
+        .win {
+            background-color: rgb(135, 206, 250);
+        }
+
+        .loss {
+            background-color: rgb(255, 99, 71);
+        }
+
+        .image-container {
+            display: flex;
+        }
+
+        .image-container img {
+            width: 50x;
+            height: 50px;
+            object-fit: cover;
+            margin-left: 10px;
+            border: 2px solid goldenrod;
+        }
+
+        .empty-box {
+            width: 50px;
+            height: 50px;
+            margin-left: 10px;
+            border: 2px solid goldenrod;
+        }
+
+        .summonerProfil {
+            width: 200px;
+            height: 200px;
+            border: 2px solid goldenrod;
+        }
+
+        .font {
+            font-family: 'SBAggroB';
+        }
+
+        .round-image {
+            border-radius: 50%;
+            border: 4px solid gray;
+            width: 75px;
+            height: 75px;
+            overflow: hidden;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="page-header">
+    <center>
+        <h1><a href="/">CH.GG</a></h1>
+        <h3 class="only_my.gg">리그오브레전드 전적검색 사이트</h3>
+    </center>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <form method="get" name="search_form" action="{% url 'score:search_result' %}">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="소환사명" name="search_text" value="{{search_text}}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="submit">검색</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if summoner_exist %}
+    <div class="row" style="margin: 40px; float: none;">
+        <div class="col-3">
+            <img style="display: block; margin: 0px" class="summonerProfil" src="{{icon_image}}">
+        </div>
+        <div class="col-9">
+            <span style="margin: 20px 0 0 0; font-size: 32px;" class="font">
+                {{ summoners_result.name }}<br>
+                <span style="font-size: 20px;">LV: {{ summoners_result.level }}</span>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div style="float: none; margin: 0 auto" class="col-5 border border-secondary d-flex align-items-center">
+            <div class="row">
+                {% if solo_tier %}
+                <div class="col-4">
+                    <img src="{% static 'images/emblems/Emblem_' %}{{ solo_tier.tier }}.png" class="full-width-image">
+                </div>
+                <div class="col-8" style="margin-top: 20px;">
+                    <div class="font">
+                        리그: {{ solo_tier.rank_type }}<br>
+                        티어: {{ solo_tier.tier }} {{ solo_tier.rank }}<br>
+                        포인트: {{ solo_tier.points }}<br>
+                        전적: {{ solo_tier.wins|add:solo_tier.losses }}전 {{ solo_tier.wins }}승 {{ solo_tier.losses }}패
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-8">
+                    <div class="box_font">
+                        <img src="{% static 'images/emblems/provisional.png' %}" width="50%">
+                        UNRANKED
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="float: none; margin: 0 auto" class="col-5 border border-secondary d-flex align-items-center">
+            <div class="row">
+                {% if team_tier %}
+                <div class="col-4">
+                    <img src="{% static 'images/emblems/Emblem_' %}{{ team_tier.tier }}.png" class="full-width-image">
+                </div>
+                <div class="col-8" style="margin-top: 20px;">
+                    <div class="font">
+                        리그: {{ team_tier.rank_type }}<br>
+                        티어: {{ team_tier.tier }} {{ team_tier.rank }}<br>
+                        포인트: {{ team_tier.points }}<br>
+                        전적: {{ team_tier.wins|add:team_tier.losses }}전 {{ team_tier.wins }}승 {{ team_tier.losses }}패
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-8">
+                    <div class="box_font">
+                        <img src="{% static 'images/emblems/provisional.png' %}" width="50%">
+                        UNRANKED
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    사용자가 존재하지 않습니다.
+    {% endif %}
+</div>
+<div>
+    {% for sublist in game_info %}
+    {% if forloop.counter <= game_info|length %}
+    <div style="margin-left: 300px; margin-right: 450px; margin-top: 10px ">
+        {% for player_info in sublist %}
+        {% if summoners_result.name == player_info.summonerName %}
+        <div {% if player_info.win == True %}class="win row"{% else %}class="loss row"{% endif %}>
+            <div>
+                <div class="row" style="display: flex; align-items: center; " >
+                {% if player_info.queueId == 420 %}
+                    <div class="font" style="margin-left: 15px;" >
+                        솔로랭크
+                    </div>
+                {% elif player_info.queueId == 450 %}
+                    <div class="font" style="margin-left: 15px;">
+                        무작위총력전
+                    </div>
+                {% elif player_info.queueId == 440 %}
+                    <div class="font" style="margin-left: 15px;">
+                        5:5자유랭크
+                    </div>
+                {% endif %}
+
+                {% if player_info.win == True %}
+                    <div class="font" style="margin-left: 5px; color: gray;" >
+                        승리
+                    </div>
+                {% else %}
+                    <div class="font" style="margin-left: 5px; color: gray;">
+                        패배
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class = 'row' style="margin-left: 10px;">
+                <img src="{{champ_image}}{{player_info.championName}}.png" class="round-image">
+
+                <div class = 'row' style="display: flex; align-items: center; margin-left: 10px;">
+                    <div>
+                        <img src="{% static 'images/spell/' %}{{ player_info.summoner1Id }}.png" width="40" height="40" style="vertical-align: middle;">
+                    </div>
+                    <div>
+                        <img src="{% static 'images/spell/' %}{{ player_info.summoner2Id }}.png" width="40" height="40" style="vertical-align: middle; margin-left: 2px;">
+                    </div>
+
+                    <div class = 'font' style="display: flex; align-items: center; margin-left: 10px; font-size:16px;" >
+                        {{ player_info.kills}} / {{ player_info.deaths}} / {{ player_info.assists}}
+                    </div>
+
+                </div>
+            </div>
+            <div class="image-container" style = "margin-top: 10px">
+                {% if player_info.item0 %}
+                <img src="{{ item_image }}{{ player_info.item0 }}.png" alt="item">
+                {% else %}
+                <div class="empty-box"></div>
+                {% endif %}
+
+                {% if player_info.item1 %}
+                <img src="{{ item_image }}{{ player_info.item1 }}.png" alt="item">
+                {% else %}
+                <div class="empty-box"></div>
+                {% endif %}
+
+                {% if player_info.item2 %}
+                <img src="{{ item_image }}{{ player_info.item2 }}.png" alt="item">
+                {% else %}
+                <div class="empty-box"></div>
+                {% endif %}
+
+                {% if player_info.item3 %}
+                <img src="{{ item_image }}{{ player_info.item3 }}.png" alt="item">
+                {% else %}
+                <div class="empty-box"></div>
+                {% endif %}
+
+                {% if player_info.item4 %}
+                <img src="{{ item_image }}{{ player_info.item4 }}.png" alt="item">
+                {% else %}
+                <div class="empty-box"></div>
+                {% endif %}
+
+                {% if player_info.item5 %}
+                <img src="{{ item_image }}{{ player_info.item5 }}.png" alt="item">
+                {% else %}
+                <div class="empty-box"></div>
+                {% endif %}
+
+                {% if player_info.item6 %}
+                <img src="{{ item_image }}{{ player_info.item6 }}.png" alt="item">
+                {% else %}
+                <div class="empty-box"></div>
+                {% endif %}
+            </div>
+        </div>
+            <div class="row" style="margin-left: 130px">
+                <div>
+                    {% for player_info in sublist %}
+                    <div class="row" style="display: flex; align-items: center;">
+                        {% if player_info.teamid == 100 %}
+                        <img src="{{champ_image}}{{player_info.championName}}.png" style="width: 20px; height: 20px">
+                        <p class="font" style="margin-top: 5px; margin-left: 8px;" >{{ player_info.summonerName }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    {% for player_info in sublist %}
+                    <div class="row" style="display: flex; align-items: center; margin-left: 40px" >
+                        {% if player_info.teamid == 200 %}
+                        <img src="{{champ_image}}{{player_info.championName}}.png" style="width: 20px; height: 20px">
+                        <p class="font" style="margin-top: 5px; margin-left: 8px;">{{ player_info.summonerName }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+</body>
+</html>

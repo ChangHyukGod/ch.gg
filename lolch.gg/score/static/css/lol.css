@@ -1,0 +1,87 @@
+﻿@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1 a {
+    color: #FCA205;
+    font-family: 'SBAggroB';
+}
+
+body {
+    padding-left: 0px;
+}
+
+.page-header {
+    background-color: #00BFFF;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+
+    .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+        color: #ffffff;
+        font-size: 36pt;
+        text-decoration: none;
+        font-family: 'SBAggroB';
+    }
+
+.content {
+    margin-left: 0px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'SBAggroB', cursive;
+}
+.container {
+    background-color: #ffffff;
+    margin-top: 40px;
+}
+.box_font {
+    font-family: 'SBAggroB'
+    margin:10px;
+}
+button {
+    font-family: 'SBAggroB';
+}
+.community_title {
+    font-family: 'SBAggroB';
+    color: #FCA205;  
+}
+.community-header {
+    margin-top: 100px;
+}
+.content-container2 {
+    margin-top : 40px;
+    margin-left:120px;  
+}
+.full-width-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.chart {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  transition: 0.3s;
+  background:lightgray;
+  display:inline-block;
+}
+.chart:after{ /* 가상선택자는 도넛 모양을 만들기 위함이다.*/
+  content:'';
+  background: #fff;  /* 백그라운드 컬러로 중앙가리기 */
+  position: absolute;
+  top:50%; left:50%;
+  width:80px; height:80px; /* 도넛의 너비 설정 */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.chart-bar{
+  width: inherit;
+  height: inherit;
+  border-radius: 50%;
+  background: conic-gradient(rgb(135, 206, 250), rgb(255, 99, 71)); /* 차트 설정 */
+}
